@@ -30,6 +30,8 @@ public class BookService {
     public List<Book> findAllByUserId(Long userId){
         return bookRepository.findByUserId(userId);
     }
+    public List<Book> findByFandom(String fandom){return bookRepository.findByFandom(fandom);}
+    public List<Book> findByTag(String tag){return bookRepository.findByTags(tag);}
 
     public void save(Book book){
         bookRepository.save(book);

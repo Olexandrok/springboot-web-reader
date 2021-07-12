@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 
 @Controller
@@ -48,7 +47,7 @@ public class UserController {
 
     @GetMapping("/user/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model){
-        User user = (User) userService.loadByUserId(id);
+        User user = userService.loadByUserId(id);
         model.addAttribute("user", user);
         return "/editUser";
     }
@@ -60,7 +59,7 @@ public class UserController {
                        @RequestParam("email") String email,
                        @RequestParam("password") String password,
                        @RequestParam("image") MultipartFile image) throws IOException {
-        User user = (User) userService.loadByUserId(id);
+        User user = userService.loadByUserId(id);
         user.setName(name);
         user.setUsername(username);
         user.setEmail(email);

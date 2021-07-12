@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:=http://www.w3.org/1999/xhtml>
+<head>
+    {{> meta}}
+    <title>Главная</title>
+    <style>
+        .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.ap {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  overflow: hidden;
+}
+    </style>
+</head>
+<body>
+<div class="topnav">
+    <form action="/" method="get" class="ap">
+        <input type="submit" value="Books">
+    </form>
+    <form action="/user" method="get" class="ap">
+        <input type="submit" value="User">
+    </form>
+    <form action="/login" method="get" style="float: right;">
+        <input type="submit" value="Sign Out">
+    </form>
+</div>
+<section class="container">
+    <div class="mx-auto border my-5 py-3 px-3 form">
+        {{#chapter}}
+        <form action="/chapter/delete" method="get">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <button type="submit" name="delete" value="{{id}}">Delete</button>
+            <!--<input class="button" type="submit" value="Удаление"/>-->
+        </form>
+        <br>
+        <form action="/chapter/edit/" method="get">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <button type="submit" name="edit" value="{{id}}">Edit</button>
+            <!--<input class="button" type="submit" value="Изменить"/>-->
+        </form>
+
+            <div class="form-group">
+                <label for="name">{{number}}</label>
+            </div>
+
+            <div class="form-group">
+                <label for="fandom">{{name}}</label>
+            </div>
+            <div class="form-group">
+                <label for="tag">{{text}}</label>
+            </div>
+        {{/chapter}}
+
+    </div>
+</section>
+</body>
+</html>

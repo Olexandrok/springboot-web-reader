@@ -39,16 +39,32 @@
                 <img src="data:image<!--/png-->;base64,{{image}}" alt="" />
             </div>
             <div class="form-group">
+                Name:
                 <label for="name">{{name}}</label>
             </div>
 
             <div class="form-group">
-                <label for="fandom">{{fandom}}</label>
+                Fandom:
+                <form action="/fandom" method="get">
+                {{#fandom}}
+                    <button type="submit" name="fandom" value="{{.}}">
+                        {{.}}
+                    </button>
+                {{/fandom}}
+                </form>
             </div>
             <div class="form-group">
-                <label for="tag">{{tags}}</label>
+                Tags:
+                <form action="/tag" method="get">
+                    {{#tags}}
+                        <button type="submit" name="tag" value="{{.}}">
+                            {{.}}
+                        </button>
+                    {{/tags}}
+                </form>
             </div>
             <div class="form-group">
+                Preview:
                 <label for="preview">{{preview}}</label>
             </div>
         {{/book}}
