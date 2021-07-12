@@ -65,9 +65,12 @@
         <div class="form-group">
             <label for="chapter">
                 {{#chapters}}
-                    {{number}} - {{name}} - {{text}}
+                    <form action="/chapter/{{id}}" method="get">
+                        <button>
+                            {{number}} - {{name}} - {{text}}
+                        </button>
+                    </form>
                 {{/chapters}}
-                123
             </label>
         </div>
 

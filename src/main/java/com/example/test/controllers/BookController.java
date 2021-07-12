@@ -2,7 +2,6 @@ package com.example.test.controllers;
 
 import com.example.test.entities.*;
 import com.example.test.repos.ChapterRepository;
-import com.example.test.repos.UserRepository;
 import com.example.test.services.BookService;
 import com.example.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,6 @@ public class BookController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @GetMapping("/book/{id}")
     public String book(@PathVariable("id")Long id, Model model, Principal principal) throws UnsupportedEncodingException {
         Book book = bookService.getById(id);
@@ -43,11 +39,16 @@ public class BookController {
 
         model.addAttribute("chapters", book.getChapters());
 
-        if (userService.loadUserByUsername(principal.getName()).getId().equals(book.getUserId())
-                || userService.loadUserByUsername(principal.getName()).getRole() == Role.ADMIN)
-            return "bookPageEditable";
-        else
+        try {
+            if (userService.loadUserByUsername(principal.getName()).getId().equals(book.getUserId())
+                    || userService.loadUserByUsername(principal.getName()).getRole() == Role.ADMIN)
+                return "bookPageEditable";
+            else
+                return "bookPage";
+        } catch (NullPointerException n){
             return "bookPage";
+        }
+
     }
 
     @GetMapping("/chapter/{id}")
@@ -91,7 +92,7 @@ public class BookController {
     @PostMapping("/{id}/addComment")
     public String addComment(@PathVariable("id") Long bookId, Principal principal, String text) throws UnsupportedEncodingException {
 
-        User user = userRepository.getById(userService.loadUserByUsername(principal.getName()).getId());
+        User user = userService.loadByUserId(userService.loadUserByUsername(principal.getName()).getId());
 
         Comment comment = new Comment(user.getName(), text, bookId, user.getId(), user.getImage());
         bookService.addComment(comment, bookId);
