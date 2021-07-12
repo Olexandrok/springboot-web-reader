@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:=http://www.w3.org/1999/xhtml>
+<head>
+    {{> meta}}
+    <title>Главная</title>
+    <style>
+        .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.ap {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  overflow: hidden;
+}
+    </style>
+</head>
+<body>
+<div class="topnav">
+    <form action="/" method="get" class="ap">
+        <input type="submit" value="Books">
+    </form>
+    <form action="/user" method="get" class="ap">
+        <input type="submit" value="User">
+    </form>
+    <form action="/login" method="get" style="float: right;">
+        <input type="submit" value="Sign Out">
+    </form>
+</div>
+<section class="container">
+    <div class="mx-auto border my-5 py-3 px-3 form">
+        {{#book}}
+            <div>
+                <img src="data:image<!--/png-->;base64,{{image}}" alt="" />
+            </div>
+            <div class="form-group">
+                <label for="name">{{name}}</label>
+            </div>
+
+            <div class="form-group">
+                <label for="fandom">{{fandom}}</label>
+            </div>
+            <div class="form-group">
+                <label for="tag">{{tags}}</label>
+            </div>
+            <div class="form-group">
+                <label for="preview">{{preview}}</label>
+            </div>
+        {{/book}}
+        <form action="/{{id}}/comments" method="get">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <input class="button" type="submit" value="Коментарии">
+        </form>
+            <div class="form-group">
+                <label for="chapter">
+                {{#chapters}}
+                        {{number}} - {{name}} - {{text}}
+                {{/chapters}}
+                    123
+                </label>
+            </div>
+
+
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:=http://www.w3.org/1999/xhtml>
+<head>
+    {{> meta}}
+    <title>Главная</title>
+    <style>
+                .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.ap {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  overflow: hidden;
+}
+
+    </style>
+</head>
+<body>
+<div class="topnav">
+    <form action="/" method="get" class="ap">
+        <input type="submit" value="Books">
+    </form>
+    <form action="/user" method="get" class="ap">
+        <input type="submit" value="User">
+    </form>
+    <form action="/login" method="get" style="float: right;">
+        <input type="submit" value="Sign Out">
+    </form>
+</div>
+{{#user}}
+<section class="container">
+    <div class="mx-auto border my-5 py-3 px-3 form">
+        <form enctype="multipart/form-data" action="/user/edit/{{id}}" method="post">
+            <div class="form-group">
+                <label for="name">Имя</label>
+                <input class="form-control" id="name" type="text" name="name" value="{{name}}">
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input class="form-control" id="username" type="text" name="username" value="{{username}}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" id="email" type="email" name="email" value="{{email}}">
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input class="form-control" id="password" type="password" name="password" value="{{password}}">
+            </div>
+            <div class="file-upload-wrapper" >
+                <input type="file" id="input-file-max-fs" class="file-upload" data-max-file-size="2M" name="image" style="width:600px;
+  height:150px;
+  padding:15px;
+  border-style:dashed;
+  border-color:#2c003a;
+  border-width:2px;
+  background-color:#fdfbfb;
+  color:#462a51;"/>
+            </div>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input class="button" type="submit" value="Изменить"/>
+        </form>
+    </div>
+</section>
+{{/user}}
+</body>
+</html>

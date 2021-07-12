@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> meta}}
+    <style>
+
+.parent {
+height: 100%;
+background: #CCCCCC;
+text-align:center;
+display: flex;
+flex-direction: column;
+flex-wrao: wrap;
+vertical-align: middle;
+}
+.child {
+    background-color: #FFFF00;
+    width: 150px;
+    height: 300px;
+    padding: 20px;
+    display: inline-block;
+    overflow: hidden;
+}
+.button {
+    height: 40%;
+    margin: 10px;
+}
+.image{
+float:left;
+display:block;
+width:60%;
+height:100%;
+margin-left:-20px;
+}
+.preview{
+display:flex;
+flex-direction: column;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+    height: inherit;
+    width: inherit;
+    margin: -20px;
+}
+        .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.ap {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  overflow: hidden;
+}
+    </style>
+    <title>Книги</title>
+</head>
+<body>
+<div class="topnav">
+    <form action="/" method="get" class="ap">
+        <input type="submit" value="Books">
+    </form>
+    <form action="/user" method="get" class="ap">
+        <input type="submit" value="User">
+    </form>
+    <form action="/login" method="get" style="float: right;">
+        <input type="submit" value="Sign Out">
+    </form>
+</div>
+<div class="parent">
+{{#books}}
+    <form action="/book/{{id}}" method="get">
+        <button class="button">
+            <div  class="child">
+                <img src="data:image<!--/png-->;base64,{{image}}" alt=""/>
+            </div>
+            <div class="child">
+                <div class="preview">
+                    <h2>{{name}}</h2>
+                </div>
+                <div class="preview">
+                    {{author}}
+                </div>
+                <div class="preview">
+                    {{preview}}
+                </div>
+            </div>
+        </button>
+    </form>
+{{/books}}
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:=http://www.w3.org/1999/xhtml>
+<head>
+    {{> meta}}
+    <title>Вход</title>
+    <style>
+       .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.ap {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  overflow: hidden;
+}
+    </style>
+</head>
+<body>
+<div class="topnav">
+    <form action="/" method="get" class="ap">
+        <input type="submit" value="Books">
+    </form>
+    <form action="/user" method="get" class="ap">
+        <input type="submit" value="User">
+    </form>
+    <form action="/registration" method="get" style="float: right;">
+        <input type="submit" value="Registration">
+    </form>
+</div>
+<section class="container">
+    <div class="mx-auto border my-5 py-3 px-3 form">
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="email">Email или имя</label>
+                <input class="form-control" id="email" type="text" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input class="form-control" id="password" type="password" name="password">
+            </div>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input class="button" type="submit" value="Вход"/>
+            <div align="center">
+                <a href="/login/google">Войти через Google</a>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

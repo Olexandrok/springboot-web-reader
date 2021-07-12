@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:=http://www.w3.org/1999/xhtml>
+<head>
+    {{> meta}}
+    <title>Коментарии</title>
+    <style>
+                .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.ap {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  overflow: hidden;
+}
+    </style>
+</head>
+<body>
+<div class="topnav">
+    <form action="/" method="get" class="ap">
+        <input type="submit" value="Books">
+    </form>
+    <form action="/user" method="get" class="ap">
+        <input type="submit" value="User">
+    </form>
+    <form action="/login" method="get" style="float: right;">
+        <input type="submit" value="Sign Out">
+    </form>
+</div>
+<section class="container">
+    <div class="my-3" align="left">
+        <form action="/{{id}}/addComment" method="post">
+            <input type="text" name="text" placeholder="Введите комментарий">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input class="button" type="submit" value="Опубликовать">
+        </form>
+    </div>
+    <!--<div class="my-3" align="center">
+        <form action="/{{id}}/addComment" method="post">
+            <input type="text" name="text" placeholder="Введите комментарий">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input class="button" type="submit" value="Опубликовать">
+        </form>
+    </div>-->
+    {{#comments}}
+        <div class="ml-3" style="display:inline;padding:30px;">
+            <div>
+                <img src="data:image<!--/png-->;base64,{{image}}" alt="" />
+            </div>
+            <div>
+                {{dateOfCreation}}
+            </div>
+            <div>
+                <h2>{{userName}}</h2>
+            </div>
+            <div>
+                {{text}}
+            </div>
+        </div>
+    {{/comments}}
+</section>
+</body>
+</html>
