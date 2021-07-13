@@ -1,7 +1,6 @@
 package com.example.test.controllers;
 
 import com.example.test.entities.*;
-import com.example.test.repos.ChapterRepository;
 import com.example.test.services.BookService;
 import com.example.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
-
-    @Autowired
-    private ChapterRepository chapterRepository;
 
     @Autowired
     private UserService userService;

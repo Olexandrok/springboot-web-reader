@@ -38,18 +38,19 @@
             <label>bookName: {{bookId}}</label>
         </div>
         <form action="/addChapter/{{bookId}}" method="post">
-            <div class="form-group">
-                <label for="number">Номер</label>
-                <input class="form-control" id="number" type="number" name="number">
+            <div class="mb-3">
+                <label for="number" class="form-label">Number</label>
+                <input type="number" class="form-control" id="number" name="number" placeholder="number">
             </div>
-            <div class="form-group">
-                <label for="name">Название</label>
-                <input class="form-control" id="name" type="text" name="name">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="name">
             </div>
-            <div class="form-group">
-                <label for="text">Текст</label>
-                <input class="form-control" id="text" type="text" name="text">
+            <div class="mb-3">
+                <label for="text" class="form-label">Text</label>
+                <textarea wrap="physical" class="form-control" id="text" name="text" rows="10"></textarea>
             </div>
+
             <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
             <input class="btn btn-success" type="submit" value="Добавить"/>
         </form>
