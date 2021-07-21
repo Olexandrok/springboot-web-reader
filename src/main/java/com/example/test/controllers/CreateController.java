@@ -3,9 +3,9 @@ package com.example.test.controllers;
 import com.example.test.entities.Book;
 import com.example.test.entities.Fandom;
 import com.example.test.entities.Tag;
-import com.example.test.repos.BookRepository;
-import com.example.test.repos.FandomRepository;
-import com.example.test.repos.TagRepository;
+import com.example.test.services.BookService;
+import com.example.test.services.FandomService;
+import com.example.test.services.TagService;
 import com.example.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,22 +27,22 @@ import java.util.Set;
 public class CreateController {
 
     @Autowired
-    private TagRepository tagRepository;
+    private TagService tagService;
 
     @Autowired
-    private FandomRepository fandomRepository;
+    private FandomService fandomService;
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private BookRepository bookRepository;
+    private BookService bookService;
 
     @GetMapping("/create/{id}")
     public String create(@PathVariable("id") Long id, Model model){
-        List<Tag> tags = tagRepository.findAll();
+        List<Tag> tags = tagService.findAll();
         model.addAttribute("tags", tags);
-        List<Fandom> fandoms = fandomRepository.findAll();
+        List<Fandom> fandoms = fandomService.findAll();
         model.addAttribute("fandoms", fandoms);
         model.addAttribute("id", id);
         return "createBook";
@@ -60,22 +60,16 @@ public class CreateController {
         Book book = new Book();
         book.setName(name);
         book.setImage(image.getBytes());
-        for (String tmp : fandoms) {
-            if (!fandomRepository.findAll().toString().contains(tmp)) {
-                fandomRepository.save(new Fandom(tmp));
-            }
-        }
-        book.setFandom(fandoms);
-        for (String tmp: tags) {
-            if (!tagRepository.findAll().toString().contains(tmp)) {
-                tagRepository.save(new Tag(tmp));
-            }
-        }
-        book.setTags(tags);
         book.setPreview(preview);
         book.setUserId(id);
         book.setAuthor(userService.getById(id).getName());
-        bookRepository.save(book);
+        bookService.save(book);
+        for (String tmp : fandoms) {
+            bookService.addFandom(new Fandom(tmp), book.getId());
+        }
+        for (String tmp: tags) {
+            bookService.addTag(new Tag(tmp), book.getId());
+        }
         return "redirect:/book/" + book.getId();
     }
 }

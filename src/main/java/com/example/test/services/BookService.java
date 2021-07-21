@@ -1,12 +1,11 @@
 package com.example.test.services;
 
-import com.example.test.entities.Book;
-import com.example.test.entities.Chapter;
-import com.example.test.entities.Comment;
+import com.example.test.entities.*;
 import com.example.test.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,23 +14,33 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
-    private ChapterRepository chapterRepository;
-
-    @Autowired
-    private TagRepository tagRepository;
-
-    @Autowired
-    private CommentRepository commentRepository;
-
-    @Autowired
-    private FandomRepository fandomRepository;
-
     public List<Book> findAllByUserId(Long userId){
         return bookRepository.findByUserId(userId);
     }
-    public List<Book> findByFandom(String fandom){return bookRepository.findByFandom(fandom);}
-    public List<Book> findByTag(String tag){return bookRepository.findByTags(tag);}
+
+    public List<Book> findByFandom(String fandom){
+        List<Book> books = new ArrayList<>();
+        for (Book book: bookRepository.findAll()) {
+            for (Fandom f : book.getFandom()) {
+                if (f.getName().equals(fandom)) {
+                    books.add(book);
+                }
+            }
+        }
+        return books;
+    }
+
+    public List<Book> findByTag(String tag){
+        List<Book> books = new ArrayList<>();
+        for (Book book: bookRepository.findAll()) {
+            for (Tag t : book.getTag()) {
+                if (t.getName().equals(tag)) {
+                    books.add(book);
+                }
+            }
+        }
+        return books;
+    }
 
     public void save(Book book){
         bookRepository.save(book);
@@ -46,6 +55,18 @@ public class BookService {
     public void addComment(Comment comment, Long id){
         Book book = bookRepository.getById(id);
         book.getComments().add(comment);
+        bookRepository.save(book);
+    }
+
+    public void addTag(Tag tag, Long id){
+        Book book = bookRepository.getById(id);
+        book.getTag().add(tag);
+        bookRepository.save(book);
+    }
+
+    public void addFandom(Fandom fandom, Long id){
+        Book book = bookRepository.getById(id);
+        book.getFandom().add(fandom);
         bookRepository.save(book);
     }
 

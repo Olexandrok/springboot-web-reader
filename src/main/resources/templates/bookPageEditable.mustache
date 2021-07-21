@@ -48,7 +48,7 @@
                 <form action="/fandom" method="get">
                     {{#fandom}}
                         <button type="submit" name="fandom" value="{{.}}">
-                            {{.}}
+                            {{name}}
                         </button>
                     {{/fandom}}
                 </form>
@@ -56,11 +56,11 @@
             <div class="form-group">
                 Tags:
                 <form action="/tag" method="get">
-                    {{#tags}}
+                    {{#tag}}
                         <button type="submit" name="tag" value="{{.}}">
-                            {{.}}
+                            {{name}}
                         </button>
-                    {{/tags}}
+                    {{/tag}}
                 </form>
             </div>
             <div class="form-group">

@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("/user")
     public String user(Principal principal, Model model){
-        User user = (User) userService.loadUserByUsername(principal.getName());
+        User user = userService.loadUserByUsername(principal.getName());
         model.addAttribute("user", user);
 
         model.addAttribute("books", bookService.findAllByUserId(user.getId()));
@@ -39,7 +39,7 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public String user(@PathVariable("id") Long id, Model model){
-        User user = (User) userService.loadByUserId(id);
+        User user = userService.loadByUserId(id);
         model.addAttribute("user", user);
         model.addAttribute("books", bookService.findAllByUserId(id));
         return "user";

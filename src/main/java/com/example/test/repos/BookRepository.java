@@ -10,10 +10,4 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findByUserId(Long userId);
-    List<Book> findByFandom(String fandom);
-    List<Book> findByTags(String tags);
-
-    /*Page<Book> findAll(Pageable pageable);*/
-
-    /*List<Book> findAll();*/
 }

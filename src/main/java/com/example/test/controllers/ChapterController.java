@@ -1,8 +1,8 @@
 package com.example.test.controllers;
 
 import com.example.test.entities.Chapter;
-import com.example.test.repos.ChapterRepository;
 import com.example.test.services.BookService;
+import com.example.test.services.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +17,11 @@ public class ChapterController {
     private BookService bookService;
 
     @Autowired
-    private ChapterRepository chapterRepository;
+    private ChapterService chapterService;
 
     @GetMapping("/chapter/{id}")
     public String chapter(@PathVariable("id")Long id, Model model){
-        Chapter chapter = chapterRepository.getById(id);
+        Chapter chapter = chapterService.getById(id);
         model.addAttribute("chapter", chapter);
 
         return "chapterPage";
@@ -45,13 +45,13 @@ public class ChapterController {
 
     @GetMapping("/chapter/delete")
     public String deleteChapter(@RequestParam("delete")Long id){
-        chapterRepository.delete(chapterRepository.getById(id));
+        chapterService.delete(chapterService.getById(id));
         return "/";
     }
 
     @GetMapping("/chapter/edit")
     public String editChapter(@RequestParam("edit")Long id, Model model){
-        model.addAttribute("chapter", chapterRepository.findById(id));
+        model.addAttribute("chapter", chapterService.getById(id));
         return "editChapter";
     }
 
@@ -60,11 +60,11 @@ public class ChapterController {
                               @RequestParam("number")int number,
                               @RequestParam("name")String name,
                               @RequestParam("text")String text){
-        Chapter chapter = chapterRepository.getById(id);
+        Chapter chapter = chapterService.getById(id);
         chapter.setNumber(number);
         chapter.setName(name);
         chapter.setText(text);
-        chapterRepository.save(chapter);
+        chapterService.save(chapter);
         return "/chapter/" + id;
     }
 }

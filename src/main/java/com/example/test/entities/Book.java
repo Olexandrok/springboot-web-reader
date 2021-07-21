@@ -7,9 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.UnsupportedEncodingException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -22,16 +21,18 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private  String name;
+    private String name;
     private String preview;
     private Long userId;
     private String author;
 
-    @ElementCollection
-    private Set<String> fandom = new HashSet<String>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "book_id")
+    private List<Fandom> fandom = new ArrayList<>();
 
-    @ElementCollection
-    private Set<String> tags = new HashSet<String>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "book_id")
+    private List<Tag> tag = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "book_id")
